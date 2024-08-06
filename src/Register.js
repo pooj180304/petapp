@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Register.css';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
-import {jwtDecode} from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 
 function Register() {
@@ -27,12 +27,19 @@ function Register() {
   const handleGoogleSuccess = async (response) => {
     const decoded = jwtDecode(response.credential);
     console.log('Google registration success:', decoded);
+    const user = {
+      googleId: decoded.sub,
+      email: decoded.email,
+      username: decoded.name,
+    };
     try {
-      const response = await axios.post('http://localhost:5000/register', decoded);
+      const response = await axios.post('http://localhost:5000/google-login', user);
       console.log(response.data);
+      // Store the token in local storage
+      localStorage.setItem('token', response.data.token);
       navigate('/login');
     } catch (error) {
-      console.error('Error registering user:', error);
+      console.error('Error logging in with Google:', error);
     }
   };
 
@@ -94,12 +101,8 @@ function Register() {
           <div className="social-login">
             <h3>Register via</h3>
             <div className="social-icons">
-              <GoogleOAuthProvider clientId="233519597543-3ueoc74bf4blq1flgimoa5cklr2e7s74.apps.googleusercontent.com">
+              <GoogleOAuthProvider clientId="your-google-client-id">
                 <GoogleLogin
-                  type="icon"
-                  theme="outline"
-                  size="small"
-                  shape="pill"
                   onSuccess={handleGoogleSuccess}
                   onError={handleGoogleFailure}
                 />
