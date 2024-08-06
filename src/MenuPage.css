@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Raleway, sans-serif;
+}
+
+body {
+  background: linear-gradient(90deg, #C7C5F4, #776BCC);
+}
+
+.menu {
+  text-align: center;
+  padding: 50px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+/* Navbar Styles */
+.navbar {
+  width: 100%;
+  padding: 20px;
+  background: #5D54A4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 0px 24px #5C5696;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.navbar__logo {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.navbar__links {
+  display: flex;
+  gap: 20px;
+}
+
+.navbar__link {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  position: relative;
+  transition: color 0.2s;
+}
+
+.navbar__link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  display: block;
+  margin-top: 5px;
+  right: 0;
+  background: #D1D1D4;
+  transition: width 0.3s ease, right 0.3s ease;
+}
+
+.navbar__link:hover::after {
+  width: 100%;
+  right: 0;
+}
+
+.navbar__link:hover {
+  color: #D1D1D4;
+}
+
+.navbar__button {
+  background: #fff;
+  color: #4C489D;
+  padding: 10px 20px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0px 2px 2px #5C5696;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.navbar__button:hover {
+  background-color: #6A679E;
+  color: #fff;
+}
+
+/* New styles for the search box */
+.navbar__search {
+  flex: 1; /* Allow the search box to take up remaining space */
+  display: flex;
+  justify-content: center;
+}
+
+.navbar__search-input {
+  width: 300px;
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.navbar__search-input::placeholder {
+  color: #ccc;
+}
+
+/* Adjust MenuPage styles */
+.menu-container {
+  padding-top: 80px; /* Adjust padding to accommodate the fixed navbar */
+}
+
+.menu {
+  text-align: center;
+  padding: 50px;
+  height: calc(100vh - 80px); /* Adjust height to account for navbar */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ima {
+  margin-top: 50px;
+}
+
+
+.menu h1 {
+  font-size: 48px;
+  margin-bottom: 30px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  text-transform: uppercase;
+}
+
+.menu h1:hover {
+  color: #f9c74f;
+}
+
+.menu ul {
+  list-style-type: none;
+  padding: 0;
+ 
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 30px;
+}
+.ima
+{
+  margin-top:50px;
+}
+.menu li {
+  margin: 20px;
+  width: 300px; /* Adjust width for image size */
+  height: 350px; /* Adjust height for image size */
+  background: linear-gradient(90deg, #5D54A4, #7C78B8);
+  border-radius: 10px;
+  box-shadow: 0px 0px 24px #5C5696;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.menu li:hover {
+  transform: translateY(-10px) scale(1.05);
+}
+
+.menu img {
+  width: 100%;
+  height: 100%; /* Ensure image fills the box */
+  object-fit: cover; /* Maintain aspect ratio and cover entire box */
+}
+
+.menu .overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.menu li:hover .overlay {
+  transform: translateY(0);
+}
+
+.menu a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  height: 100%; /* Ensure the entire box is clickable */
+}

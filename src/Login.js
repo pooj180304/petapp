@@ -1,23 +1,37 @@
 import React, { useState } from 'react';
 import './Login.css';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
-import { jwtDecode } from 'jwt-decode'; 
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 
 function Login() {
   const [formData, setFormData] = useState({ email: '', password: '' });
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value.trim() }); // Trim whitespace
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form data:', formData);
+    console.log('Submitted data:', formData); // Log submitted data
+
+    try {
+      const response = await axios.post('http://localhost:5000/login', formData);
+      console.log(response.data);
+      navigate('/menupage');
+    } catch (error) {
+      setError('Invalid email or password');
+      console.error('Login error:', error);
+    }
   };
 
   const handleGoogleSuccess = (response) => {
     const decoded = jwtDecode(response.credential);
     console.log('Google login success:', decoded);
+    navigate('/menupage');
   };
 
   const handleGoogleFailure = () => {
@@ -28,8 +42,9 @@ function Login() {
     <div className="container">
       <div className="screen">
         <div className="screen__content">
-          <form className="login" onSubmit={handleSubmit}>
+          <form className="login1" onSubmit={handleSubmit}>
             <h1 style={{ color: '#5C5696' }}>Login</h1>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
             <div className="login__field">
               <i className="login__icon fas fa-user"></i>
               <input
@@ -58,7 +73,7 @@ function Login() {
             </button>
           </form>
           <div className="social-login">
-            <h3>log in via</h3>
+            <h3>Log in via</h3>
             <div className="social-icons">
               <GoogleOAuthProvider clientId="233519597543-3ueoc74bf4blq1flgimoa5cklr2e7s74.apps.googleusercontent.com">
                 <GoogleLogin

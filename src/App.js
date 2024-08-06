@@ -1,9 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './Login';
+import Home from './Home';
+import Register from './Register';
+import Services from './Services';
+import Contact from './Contact';
+import About from './About';
+import MenuPage from './MenuPage';
+import ProductPage from './ProductPage';
+import Cart from './Cart';
+
 function App() {
   return (
-    <Login></Login>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />}/>
+        <Route path="/menupage" element={<MenuPage />}/>
+        <Route path="/products/:category" element={<ProductPage />} />
+        <Route path="/cart" element={<Cart />} />
+      </Routes>
+    </Router>
   );
 }
 

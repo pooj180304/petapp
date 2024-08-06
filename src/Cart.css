@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Raleway, sans-serif;
+}
+
+body {
+  background: linear-gradient(90deg, #C7C5F4, #776BCC);
+  color: #fff;
+  padding-top: 80px; /* Adjust padding to accommodate the fixed navbar */
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.App-header {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.cart-container {
+  background: linear-gradient(90deg, #5D54A4, #7C78B8);
+  border-radius: 10px;
+  box-shadow: 0px 0px 24px #5C5696;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 800px;
+}
+
+.cart-items {
+  list-style: none;
+  padding: 0;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #fff;
+}
+
+.cart-item span {
+  font-size: 16px;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-controls button {
+  background: #fff;
+  color: #4C489D;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  margin: 0 5px;
+}
+
+.quantity-controls button:hover {
+  background-color: #6A679E;
+  color: #fff;
+}
+
+.remove-button {
+  background: #D9534F;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.remove-button:hover {
+  background-color: #C9302C;
+}
+
+.cart-summary {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.cart-summary h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.cart-summary button {
+  background: #fff;
+  color: #4C489D;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.cart-summary button:hover {
+  background-color: #6A679E;
+  color: #fff;
+}
