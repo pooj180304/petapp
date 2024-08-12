@@ -1,8 +1,19 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+// MenuPage.js
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './MenuPage.css';
 
 function MenuPage() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery) {
+      navigate(`/search/${searchQuery}`);
+    }
+  };
+
   const categories = ['Dogs', 'Cats', 'Birds', 'Fish', 'Reptiles', 'Small Pets'];
   const images = [
     'dog.jpg',
@@ -17,10 +28,16 @@ function MenuPage() {
     <div className="menu-container">
       <nav className="navbar">
         <div className="navbar__logo">Happy Paws</div>
-        
-        <div className="navbar__search">
-          <input type="text" placeholder="Search..." className="navbar__search-input" />
-        </div>
+        <form className="navbar__search" onSubmit={handleSearchSubmit}>
+          <input 
+            type="text" 
+            placeholder="Search..." 
+            className="navbar__search-input"
+          value={searchQuery}
+      onChange={(e) => setSearchQuery(e.target.value)}
+  />
+  <button type="submit" className="search-button">Search</button>
+</form>
         <div>
           <Link to="/cart" className="navbar__button">Cart</Link>
         </div>

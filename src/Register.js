@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Register.css';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
-import jwtDecode from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 import axios from 'axios';
 
 function Register() {
@@ -101,8 +101,12 @@ function Register() {
           <div className="social-login">
             <h3>Register via</h3>
             <div className="social-icons">
-              <GoogleOAuthProvider clientId="your-google-client-id">
+            <GoogleOAuthProvider clientId="233519597543-3ueoc74bf4blq1flgimoa5cklr2e7s74.apps.googleusercontent.com">
                 <GoogleLogin
+                  type='icon'
+                  theme='outline'
+                  size='small'
+                  shape='pill'
                   onSuccess={handleGoogleSuccess}
                   onError={handleGoogleFailure}
                 />

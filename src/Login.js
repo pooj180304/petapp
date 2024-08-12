@@ -28,14 +28,27 @@ function Login() {
     }
   };
 
-  const handleGoogleSuccess = (response) => {
-    const decoded = jwtDecode(response.credential);
-    console.log('Google login success:', decoded);
-    navigate('/menupage');
+  const handleGoogleSuccess = async (response) => {
+    try {
+      const decoded = jwtDecode(response.credential);
+      const { email, sub: googleId, name: username } = decoded;
+      const backendResponse = await axios.post('http://localhost:5000/google-login', {
+        googleId,
+        email,
+        username,
+      });
+
+      console.log('Google login success:', backendResponse.data);
+      navigate('/menupage');
+    } catch (error) {
+      console.error('Google login error:', error);
+      setError('Google login failed');
+    }
   };
 
   const handleGoogleFailure = () => {
     console.log('Google login failed');
+    setError('Google login failed');
   };
 
   return (

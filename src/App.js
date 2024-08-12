@@ -10,6 +10,7 @@ import About from './About';
 import MenuPage from './MenuPage';
 import ProductPage from './ProductPage';
 import Cart from './Cart';
+import SearchResultsPage from './SearchResultsPage';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/login" element={<Login />}/>
         <Route path="/menupage" element={<MenuPage />}/>
         <Route path="/products/:category" element={<ProductPage />} />
+        <Route path="/search/:query" element={<SearchResultsPage />} />
         <Route path="/cart" element={<Cart />} />
       </Routes>
     </Router>
