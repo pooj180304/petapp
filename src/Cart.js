@@ -20,24 +20,25 @@ function Cart() {
   }, []);
 
   const handleRemove = async (id) => {
-    const updatedCart = cart.filter(item => item.id !== id);
-    setCart(updatedCart);
-    await updateCartOnServer(updatedCart);
+    try {
+      await axios.delete(`http://localhost:5000/cart/${id}`);
+      setCart(cart.filter(item => item._id !== id));
+    } catch (error) {
+      console.error('Error removing item from cart:', error);
+    }
   };
 
   const handleQuantityChange = async (id, change) => {
     const updatedCart = cart.map(item => {
-      if (item.id === id) {
+      if (item._id === id) {
         const newQuantity = item.quantity + change;
         return { ...item, quantity: Math.max(newQuantity, 1) };
       }
       return item;
     });
-    setCart(updatedCart);
-    await updateCartOnServer(updatedCart);
-  };
 
-  const updateCartOnServer = async (updatedCart) => {
+    setCart(updatedCart);
+
     try {
       await axios.put('http://localhost:5000/cart', updatedCart);
     } catch (error) {
@@ -68,15 +69,15 @@ function Cart() {
       <div className="cart-container">
         <ul className="cart-items">
           {cart.map(item => (
-            <li key={item.id} className="cart-item">
+            <li key={item._id} className="cart-item">
               <span>{item.name}</span>
               <span>${item.price.toFixed(2)}</span>
               <div className="quantity-controls">
-                <button onClick={() => handleQuantityChange(item.id, -1)}>-</button>
+                <button onClick={() => handleQuantityChange(item._id, -1)}>-</button>
                 <span>{item.quantity}</span>
-                <button onClick={() => handleQuantityChange(item.id, 1)}>+</button>
+                <button onClick={() => handleQuantityChange(item._id, 1)}>+</button>
               </div>
-              <button onClick={() => handleRemove(item.id)} className="remove-button">Remove</button>
+              <button onClick={() => handleRemove(item._id)} className="remove-button">Remove</button>
             </li>
           ))}
         </ul>

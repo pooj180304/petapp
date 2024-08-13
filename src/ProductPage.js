@@ -21,8 +21,8 @@ function ProductPage() {
   }, [category]);
 
   const handleAddToCart = async (product) => {
-    const cartItem = { ...product, quantity: 1 };
-
+    const cartItem = { ...product, quantity: 1};
+  
     try {
       await axios.post('http://localhost:5000/cart', cartItem);
       console.log('Item added to cart:', cartItem);
@@ -30,6 +30,7 @@ function ProductPage() {
       console.error('Error adding to cart:', error);
     }
   };
+  
 
   if (!products.length) {
     return <div className="product-page"><h1>No products available for this category</h1></div>;
