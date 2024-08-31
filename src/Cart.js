@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './Cart.css';
 
 function Cart() {
@@ -22,9 +24,10 @@ function Cart() {
   const handleRemove = async (id) => {
     try {
       await axios.delete(`http://localhost:5000/cart/${id}`);
+      toast.success("Item removed from cart");
       setCart(cart.filter(item => item._id !== id));
     } catch (error) {
-      console.error('Error removing item from cart:', error);
+      toast.error('Error removing item from cart');
     }
   };
 
@@ -42,7 +45,7 @@ function Cart() {
     try {
       await axios.put('http://localhost:5000/cart', updatedCart);
     } catch (error) {
-      console.error('Error updating cart:', error);
+      toast.error('Error updating cart');
     }
   };
 
@@ -51,11 +54,12 @@ function Cart() {
   };
 
   const handleCheckout = () => {
-    console.log('Checking out with items:', cart);
+    toast.success('Checking out with items:');
   };
 
   return (
     <div>
+      <ToastContainer />
       <nav className="navbar">
         <div className="navbar__logo">Happy Paws</div>
         <div className="navbar__search">

@@ -3,6 +3,8 @@ import './Login.css';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { jwtDecode } from 'jwt-decode';
 
 function Login() {
@@ -38,7 +40,7 @@ function Login() {
         username,
       });
 
-      console.log('Google login success:', backendResponse.data);
+      toast.success('Google login success:');
       navigate('/menupage');
     } catch (error) {
       console.error('Google login error:', error);
@@ -47,12 +49,13 @@ function Login() {
   };
 
   const handleGoogleFailure = () => {
-    console.log('Google login failed');
+    toast.error('Google login failed');
     setError('Google login failed');
   };
 
   return (
     <div className="container">
+      <ToastContainer /> 
       <div className="screen">
         <div className="screen__content">
           <form className="login1" onSubmit={handleSubmit}>

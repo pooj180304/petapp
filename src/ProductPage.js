@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './ProductPage.css';
 
 function ProductPage() {
@@ -25,9 +27,9 @@ function ProductPage() {
   
     try {
       await axios.post('http://localhost:5000/cart', cartItem);
-      console.log('Item added to cart:', cartItem);
+      toast.success('Item added to cart successfully!');
     } catch (error) {
-      console.error('Error adding to cart:', error);
+      toast.error('Error adding to cart:', error);
     }
   };
   
@@ -38,6 +40,7 @@ function ProductPage() {
 
   return (
     <div className="product-page">
+      <ToastContainer /> 
       <nav className="navbar">
         <div className="navbar__logo">Happy Paws</div>
         <div className="navbar__search">

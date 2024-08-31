@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import './Register.css';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import {jwtDecode} from 'jwt-decode';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
 function Register() {
@@ -17,10 +19,10 @@ function Register() {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:5000/register', formData);
-      console.log(response.data);
+      toast.success("Registered Successfully");
       navigate('/login');
     } catch (error) {
-      console.error('Error registering user:', error);
+      toast.error('Error registering user');
     }
   };
 
@@ -37,18 +39,20 @@ function Register() {
       console.log(response.data);
       // Store the token in local storage
       localStorage.setItem('token', response.data.token);
+      toast.success("Google Login Success");
       navigate('/login');
     } catch (error) {
-      console.error('Error logging in with Google:', error);
+      toast.error('Error logging in with Google');
     }
   };
 
   const handleGoogleFailure = () => {
-    console.log('Google registration failed');
+    toast.error('Google registration failed');
   };
 
   return (
     <div className="container">
+      <ToastContainer /> 
       <div className="screen">
         <div className="screen__content">
           <form className="login" onSubmit={handleSubmit}>
