@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Register.css';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
-import {jwtDecode} from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode'; // Ensure correct import
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
@@ -17,8 +17,12 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      toast.error('Passwords do not match');
+      return;
+    }
     try {
-      const response = await axios.post('http://localhost:5000/register', formData);
+      await axios.post('http://localhost:5000/register', formData);
       toast.success("Registered Successfully");
       navigate('/login');
     } catch (error) {
@@ -35,10 +39,8 @@ function Register() {
       username: decoded.name,
     };
     try {
-      const response = await axios.post('http://localhost:5000/google-login', user);
-      console.log(response.data);
-      // Store the token in local storage
-      localStorage.setItem('token', response.data.token);
+      const { data } = await axios.post('http://localhost:5000/google-login', user);
+      localStorage.setItem('token', data.token);
       toast.success("Google Login Success");
       navigate('/login');
     } catch (error) {
@@ -105,7 +107,7 @@ function Register() {
           <div className="social-login">
             <h3>Register via</h3>
             <div className="social-icons">
-            <GoogleOAuthProvider clientId="233519597543-3ueoc74bf4blq1flgimoa5cklr2e7s74.apps.googleusercontent.com">
+              <GoogleOAuthProvider clientId="233519597543-3ueoc74bf4blq1flgimoa5cklr2e7s74.apps.googleusercontent.com">
                 <GoogleLogin
                   type='icon'
                   theme='outline'

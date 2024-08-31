@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { jwtDecode } from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode'; // Ensure correct import
 
 function Login() {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -21,8 +21,7 @@ function Login() {
     console.log('Submitted data:', formData); // Log submitted data
 
     try {
-      const response = await axios.post('http://localhost:5000/login', formData);
-      console.log(response.data);
+      await axios.post('http://localhost:5000/login', formData);
       navigate('/menupage');
     } catch (error) {
       setError('Invalid email or password');
@@ -34,13 +33,12 @@ function Login() {
     try {
       const decoded = jwtDecode(response.credential);
       const { email, sub: googleId, name: username } = decoded;
-      const backendResponse = await axios.post('http://localhost:5000/google-login', {
+      await axios.post('http://localhost:5000/google-login', {
         googleId,
         email,
         username,
       });
-
-      toast.success('Google login success:');
+      toast.success('Google login success');
       navigate('/menupage');
     } catch (error) {
       console.error('Google login error:', error);
