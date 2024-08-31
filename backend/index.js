@@ -151,6 +151,21 @@ app.put('/cart', async (req, res) => {
   }
 });
 
+// Route to search products
+app.get('/search/:query', async (req, res) => {
+  const { query } = req.params;
+
+  try {
+    // Assuming products have a 'name' field to search by
+    const products = await Product.find({
+      name: { $regex: query, $options: 'i' }
+    });
+    res.status(200).json({ products, totalCount: products.length });
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching search results' });
+  }
+});
+
 
 // Start Server
 app.listen(PORT, () => {

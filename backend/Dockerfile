@@ -13,14 +13,10 @@ RUN npm install
 # Copy the rest of the application
 COPY . .
 
-# Build the application for production
-RUN npm run build
 
-# Serve the build folder using a simple HTTP server
-RUN npm install -g serve
 
 # Expose port 3000 (the default port for serve)
-EXPOSE 3000
+EXPOSE 5000
 
 # Start the application
-CMD ["serve", "-s", "build"]
+CMD ["npm","start"]
